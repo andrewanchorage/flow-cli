@@ -35,10 +35,11 @@ import (
 )
 
 type deployContractFlags struct {
-	ArgsJSON string   `default:"" flag:"args-json" info:"arguments in JSON-Cadence format"`
-	Signer   string   `default:"emulator-account" flag:"signer" info:"Account name from configuration used to sign the transaction"`
-	Include  []string `default:"" flag:"include" info:"Fields to include in the output. Valid values: contracts."`
-	ShowDiff bool     `default:"false" flag:"show-diff" info:"Shows diff between existing and new contracts on update"`
+	ArgsJSON     string   `default:"" flag:"args-json" info:"arguments in JSON-Cadence format"`
+	Signer       string   `default:"emulator-account" flag:"signer" info:"Account name from configuration used to sign the transaction"`
+	Include      []string `default:"" flag:"include" info:"Fields to include in the output. Valid values: contracts."`
+	ShowDiff     bool     `default:"false" flag:"show-diff" info:"Shows diff between existing and new contracts on update"`
+	Experimental bool     `default:"false" flag:"experimental" info:"Updates a contract without running init() function and maintains state"`
 }
 
 var addContractFlags = deployContractFlags{}
@@ -99,6 +100,7 @@ func deployContract(update bool, flags *deployContractFlags) command.RunWithStat
 				Location: filename,
 			},
 			deployFunc,
+			flags.Experimental,
 		)
 
 		if err != nil {
