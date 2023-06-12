@@ -24,6 +24,7 @@ import (
 	"github.com/onflow/flow-cli/internal/command"
 )
 
+
 var updateContractFlags = deployContractFlags{}
 
 var updateCommand = &command.Command{
